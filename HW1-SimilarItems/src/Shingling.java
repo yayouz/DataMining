@@ -1,4 +1,4 @@
-package similarItems;
+//package similarItems;
 
 import java.util.HashMap;
 import java.util.Random;

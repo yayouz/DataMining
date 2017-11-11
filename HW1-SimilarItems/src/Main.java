@@ -1,8 +1,11 @@
-package similarItems;
+//package HW1-imilarItems;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.io.*;
@@ -10,7 +13,7 @@ import java.io.*;
 public class Main {
 
 	public static void main(String[] args) {
-		String route="/dataset/";
+		String route="src/dataset/";
 		// Shingling test		
 		Shingling s = new Shingling();
 		//String text1 = "abdabc";
@@ -63,49 +66,88 @@ public class Main {
 		System.out.println("--- CompareSets test 5 ---");
 		System.out.println(new CompareSets().ComputeJaccard(set1, set6));
 		
-		HashMap<Integer,text> Matrix=new MinHashing(set1,set2).minhashFunction(50);
-		System.out.println("--- Signature test 1 ---");
-		System.out.println("Signature for text1"+Matrix.get(1).signatures );
-		System.out.println("Signature for text2"+Matrix.get(2).signatures );
+//		HashMap<Integer,text> Matrix=new MinHashing(set1,set2).minhashFunction(50);
+//		System.out.println("--- Signature test 1 ---");
+//		System.out.println("Signature for text1"+Matrix.get(1).signatures );
+//		System.out.println("Signature for text2"+Matrix.get(2).signatures );
+//		
+//		System.out.println("Similarity of signature for text1 and text2: "
+//						+new CompareSignatures().similar(Matrix.get(1).signatures, Matrix.get(2).signatures) );
+//		
+//
+//		Matrix=new MinHashing(set1,set3).minhashFunction(50);
+//		System.out.println("--- Signature test 2 ---");
+//		System.out.println("Signature for text1"+Matrix.get(1).signatures );
+//		System.out.println("Signature for text3"+Matrix.get(2).signatures );
+//		
+//		System.out.println("Similarity of signature for text1 and text3: "
+//						+new CompareSignatures().similar(Matrix.get(1).signatures, Matrix.get(2).signatures) );
+//		
+//		Matrix=new MinHashing(set1,set4).minhashFunction(50);
+//		System.out.println("--- Signature test 3 ---");
+//		System.out.println("Signature for text1"+Matrix.get(1).signatures );
+//		System.out.println("Signature for text4"+Matrix.get(2).signatures );
+//		
+//		System.out.println("Similarity of signature for text1 and text4: "
+//						+new CompareSignatures().similar(Matrix.get(1).signatures, Matrix.get(2).signatures) );
+//	
+//		Matrix=new MinHashing(set1,set5).minhashFunction(50);
+//		System.out.println("--- Signature test 4 ---");
+//		System.out.println("Signature for text1"+Matrix.get(1).signatures );
+//		System.out.println("Signature for text5"+Matrix.get(2).signatures );
+//		
+//		System.out.println("Similarity of signature for text1 and text5: "
+//						+new CompareSignatures().similar(Matrix.get(1).signatures, Matrix.get(2).signatures) );
+//	
+//		Matrix=new MinHashing(set1,set6).minhashFunction(50);
+//		System.out.println("--- Signature test 5 ---");
+//		System.out.println("Signature for text1"+Matrix.get(1).signatures );
+//		System.out.println("Signature for text6"+Matrix.get(2).signatures );
+//		
+//		System.out.println("Similarity of signature for text1 and text6: "
+//						+new CompareSignatures().similar(Matrix.get(1).signatures, Matrix.get(2).signatures) );
 		
+		
+		Set<Integer> AllShingle = new HashSet<Integer>(set1);
+		AllShingle.addAll(set2); AllShingle.addAll(set3); AllShingle.addAll(set4); AllShingle.addAll(set5); AllShingle.addAll(set6);
+		
+		Random rand = new Random();
+		List<Integer> a = new ArrayList<Integer>();
+		List<Integer> b = new ArrayList<Integer>();
+		int n = 20;
+		
+		for (int i = 0; i < n; i++) {
+			a.add(rand.nextInt(AllShingle.size()));
+			b.add(rand.nextInt(AllShingle.size()));
+		}
+		
+		RandomMinHash rmh1 = new RandomMinHash(n, AllShingle, set1, a, b);
+		RandomMinHash rmh2 = new RandomMinHash(n, AllShingle, set2, a, b);
+		RandomMinHash rmh3 = new RandomMinHash(n, AllShingle, set3, a, b);
+		RandomMinHash rmh4 = new RandomMinHash(n, AllShingle, set4, a, b);
+		RandomMinHash rmh5 = new RandomMinHash(n, AllShingle, set5, a, b);
+		RandomMinHash rmh6 = new RandomMinHash(n, AllShingle, set6, a, b);
+		
+		System.out.println("Signature for text1: "+rmh1.Signature());
+		System.out.println("Signature for text2: "+rmh2.Signature());
+		System.out.println("Signature for text3: "+rmh3.Signature());
+		System.out.println("Signature for text4: "+rmh4.Signature());
+		System.out.println("Signature for text5: "+rmh5.Signature());
+		System.out.println("Signature for text6: "+rmh6.Signature());
+	
 		System.out.println("Similarity of signature for text1 and text2: "
-						+new CompareSignatures().similar(Matrix.get(1).signatures, Matrix.get(2).signatures) );
-		
-
-		Matrix=new MinHashing(set1,set3).minhashFunction(50);
-		System.out.println("--- Signature test 2 ---");
-		System.out.println("Signature for text1"+Matrix.get(1).signatures );
-		System.out.println("Signature for text3"+Matrix.get(2).signatures );
-		
+				+new CompareSignatures().similar(rmh1.Signature(), rmh2.Signature()) );
 		System.out.println("Similarity of signature for text1 and text3: "
-						+new CompareSignatures().similar(Matrix.get(1).signatures, Matrix.get(2).signatures) );
-		
-		Matrix=new MinHashing(set1,set4).minhashFunction(50);
-		System.out.println("--- Signature test 3 ---");
-		System.out.println("Signature for text1"+Matrix.get(1).signatures );
-		System.out.println("Signature for text4"+Matrix.get(2).signatures );
-		
+				+new CompareSignatures().similar(rmh1.Signature(), rmh3.Signature()) );
 		System.out.println("Similarity of signature for text1 and text4: "
-						+new CompareSignatures().similar(Matrix.get(1).signatures, Matrix.get(2).signatures) );
-	
-		Matrix=new MinHashing(set1,set5).minhashFunction(50);
-		System.out.println("--- Signature test 4 ---");
-		System.out.println("Signature for text1"+Matrix.get(1).signatures );
-		System.out.println("Signature for text5"+Matrix.get(2).signatures );
-		
+				+new CompareSignatures().similar(rmh1.Signature(), rmh4.Signature()) );
 		System.out.println("Similarity of signature for text1 and text5: "
-						+new CompareSignatures().similar(Matrix.get(1).signatures, Matrix.get(2).signatures) );
-	
-		Matrix=new MinHashing(set1,set6).minhashFunction(50);
-		System.out.println("--- Signature test 5 ---");
-		System.out.println("Signature for text1"+Matrix.get(1).signatures );
-		System.out.println("Signature for text6"+Matrix.get(2).signatures );
-		
+				+new CompareSignatures().similar(rmh1.Signature(), rmh5.Signature()) );
 		System.out.println("Similarity of signature for text1 and text6: "
-						+new CompareSignatures().similar(Matrix.get(1).signatures, Matrix.get(2).signatures) );
-	
-
+				+new CompareSignatures().similar(rmh1.Signature(), rmh6.Signature()) );
+		
 	}
+	
 	public static String readFile(String fileName) {
         File file = new File(fileName);
         BufferedReader reader = null;
