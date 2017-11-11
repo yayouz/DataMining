@@ -114,7 +114,7 @@ public class Main {
 		Random rand = new Random();
 		List<Integer> a = new ArrayList<Integer>();
 		List<Integer> b = new ArrayList<Integer>();
-		int n = 20;
+		int n = 100;
 		
 		for (int i = 0; i < n; i++) {
 			a.add(rand.nextInt(AllShingle.size()));
