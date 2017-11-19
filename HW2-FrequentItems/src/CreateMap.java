@@ -7,7 +7,7 @@ public class CreateMap {
 		
 	}
 
-	// create map: secondCount -> hashvalue of item pairs
+	// create map: index k in secondCount -> hashvalue of item pairs
 	public HashMap<Integer, HashSet<Integer>> GetMap(int[] secondCount, 
 			int[] freItems, int n, HashMap<Integer, Integer> fwd_map) {
 		HashMap<Integer, HashSet<Integer>> secfreItemMap = new HashMap<Integer, HashSet<Integer>>();
@@ -23,7 +23,7 @@ public class CreateMap {
 			int jj = getArrayIndex(freItems, n - i + k);
 			HashSet<Integer> curKey = new HashSet<Integer>();
 			curKey.add(fwd_map.get(ii)); curKey.add(fwd_map.get(jj));
-			secfreItemMap.put(secondCount[k], curKey);
+			secfreItemMap.put(k, curKey);
 		}
 		
 		return secfreItemMap;

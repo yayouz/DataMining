@@ -33,7 +33,7 @@ public class BetweenPasses {
 		for (int i = 0; i < doubleton.length; i++) {
 			if (doubleton[i] >= s) {
 				freItems[i] = index++;
-				secfreItemMap.put(fwd_map.get(doubleton[i]), doubleton[i]);
+				secfreItemMap.put(fwd_map.get(i), doubleton[i]);
 			}
 		}
 	}

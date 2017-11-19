@@ -65,7 +65,6 @@ public class Main {
 		
 		System.out.println("frequent doubletons (size: " + secfreItemMap.size() + "):");
 		System.out.println(secfreItemMap);
-		//System.out.println(Arrays.toString(secondCount));
 		System.out.println("------ second pass done! ------");
 		System.out.println();
 		
