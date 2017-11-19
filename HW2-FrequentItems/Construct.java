@@ -2,25 +2,29 @@ package frequentItems;
 
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Construct {
-	private HashMap <Integer,itemSet> allItemSet;
+	private HashMap <HashSet<String>,Integer> allItemSet;
 	
 	public Construct(){
-		this.allItemSet=new HashMap <Integer,itemSet>();
+		this.allItemSet=new HashMap <HashSet<String>,Integer>();
 	}
 	
-	public  HashMap <Integer,itemSet> generate(HashMap <Integer,itemSet> item){
-		itemSet Set=new itemSet();
-		int idNew=1;
-		for(int id1=1;id1<item.size();id1++){
-			for(int id2=id1+1;id2<=item.size();id2++){
-				Set=new itemSet();
-				Set.items.addAll(item.get(id1).items);
-				Set.items.addAll(item.get(id2).items);
-				System.out.println(idNew+": "+Set.items);
-				allItemSet.put(idNew, Set);
-				idNew++;
+	public  HashMap <HashSet<String>,Integer> generate(HashMap <HashSet<String>,Integer> itemList){
+		HashSet<String> Set=new HashSet<String>();
+		Set <HashSet<String>> KeySet=itemList.keySet();
+		List <HashSet<String>> KeyList=new ArrayList<HashSet<String>>(KeySet);
+		for(int id1=0;id1<KeySet.size()-1;id1++ ){
+			for(int id2=id1+1;id2<KeySet.size();id2++){
+				Set=new HashSet<String>();
+				Set.addAll(KeyList.get(id1));
+				Set.addAll(KeyList.get(id2));
+				allItemSet.put(Set,0);
+
 			}
 		}
 		return allItemSet;

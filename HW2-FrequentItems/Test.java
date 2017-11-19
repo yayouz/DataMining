@@ -4,70 +4,73 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.HashMap;
-
+import java.util.List;
+import java.util.ArrayList;
 
 public class Test {
 	
 	public static void main(String[] args) {
 		String filename="d:/data/T10I4D100K.dat";
-		Integer support=3000;
-		Construct cons=new Construct();
+		
 		filter ItemFilter=new filter();
+		Construct cons=new Construct();
 		//initial basketList//
-		HashMap <Integer,basket> basketList;
+		List<HashSet<String>> basketList;
 		basketList = initialBasket(filename);
-		System.out.println(basketList.size());
+		double support=0.02;		
+		System.out.println("The basket size is: "+basketList.size()+" support is: "+support);
 		//initial All items set//
 		HashMap <String,Integer> itemSet=initialItemSet(basketList);
 		System.out.println(itemSet.size());
 		
-		HashMap <String,Integer> frequentSingleItem=ItemFilter.filteLevel1(support,itemSet);
-		System.out.println("The number of frequent single itemsets is: "+frequentSingleItem.size());
-		int i=1;
+		HashMap <String,Integer> frequentSingleItem=ItemFilter.filteLevel1(support,basketList.size(),itemSet);
+		
 		
 		//using itemSet instead of itemName//
-		HashMap <Integer,itemSet> frequentItemSet=new HashMap <Integer,itemSet>();
+		HashMap <HashSet<String>,Integer> frequentItemSet=new HashMap <HashSet<String>,Integer>();
 		for(String name:frequentSingleItem.keySet()){
-			itemSet Set=new itemSet();
-			Set.add(name,frequentSingleItem.get(name));
-			frequentItemSet.put(i,Set);
-			i++;
+			HashSet<String> Set=new HashSet<String>();
+			Set.add(name);
+			frequentItemSet.put(Set,frequentSingleItem.get(name));
 		}
 		///Test1//
-		/*for(Integer id:frequentItemSet.keySet()){
-				System.out.println(frequentItemSet.get(id).items+": "+frequentItemSet.get(id).frequency);
+		System.out.println("The number of frequent single itemsets is: "+frequentItemSet.size());
+		/*for(HashSet<String> set:frequentItemSet.keySet()){
+				System.out.println(set+" : "+frequentItemSet.get(set));
 	    }*/
 		
 		///generate two item set///
 		System.out.println("---------total pairs of items consist of frequent single item------");
-		HashMap <Integer,itemSet> PairItems=cons.generate(frequentItemSet);
+		HashMap <HashSet<String>,Integer> PairItems=cons.generate(frequentItemSet);
+		System.out.println("The number of pair items set is: "+ PairItems.size());
 		
-
-		System.out.println("---------frequent paired item set------");
-		HashMap <Integer,itemSet> frequentPairItem=ItemFilter.filte(1000, PairItems,basketList);
 		///Test2//
-		System.out.println("The number of frequent pair set is: "+ frequentPairItem.size());
-		for(Integer id:frequentPairItem.keySet()){
-			System.out.println(frequentPairItem.get(id).items+": "+frequentPairItem.get(id).frequency);
+		//System.out.println("The number of pair set is: "+ CountedPairItems.size());
+		/*for(HashSet<String> set:PairItems.keySet()){		
+			System.out.println(set+" : "+PairItems.get(set));
+	  	}*/
+		System.out.println("---------frequent paired item set------");
+		HashMap <HashSet<String>,Integer> frequentPairItem=ItemFilter.filte(support, PairItems,basketList);
+		for(HashSet<String> set:frequentPairItem.keySet()){
+			System.out.println(set+" : "+frequentPairItem.get(set));
 		}
 		
 	}
 	
-	public static HashMap <Integer,basket> initialBasket(String fileName) {
-		HashMap <Integer,basket> basketList=new HashMap <Integer,basket>();
-        basket B=new basket();
+	public static List<HashSet<String>> initialBasket(String fileName) {
+		List<HashSet<String>> basketList=new ArrayList<HashSet<String>>();
+		HashSet<String> singleBasket=new HashSet<String>();
 		File file = new File(fileName);
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(new FileReader(file));
             String tempString = null;
-            int id=1;
             while ((tempString = reader.readLine()) != null) {
-            	B=new basket();
-            	B.addItem(id, tempString);
-            	basketList.put(id,B);
-            	id++;
+            	singleBasket=addItem(tempString);
+            	basketList.add(singleBasket);
+
             }
             reader.close();
             
@@ -84,11 +87,19 @@ public class Test {
         return basketList;
     }
 	
-	public static HashMap <String,Integer> initialItemSet(HashMap <Integer,basket> basketList) {
+	public static HashSet<String> addItem(String Allitems){
+		HashSet<String> singleBasket=new HashSet<String>();
+		for (String item: Allitems.split(" ")){
+			singleBasket.add(item);
+        }
+		return singleBasket;
+	}
+	
+	public static HashMap <String,Integer> initialItemSet(List<HashSet<String>> basketList) {
 		HashMap <String,Integer> itemSet=new HashMap <String,Integer>();
 		
-		for(basket B:basketList.values()){
-			for(String item:B.items){
+		for(int id=0;id<basketList.size();id++){
+			for(String item:basketList.get(id)){
 				if(!itemSet.containsKey(item)){					
 					itemSet.put(item,1);
 				}
