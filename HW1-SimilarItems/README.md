@@ -1,2 +1,0 @@
-# DataMining
-DataMing course lab
