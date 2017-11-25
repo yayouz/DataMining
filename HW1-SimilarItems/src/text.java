@@ -1,4 +1,4 @@
-package similarItems;
+//package similarItems;
 
 import java.util.ArrayList;
 import java.util.List;
