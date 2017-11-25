@@ -112,6 +112,7 @@ public class Triest {
 				tau_c.put(e.getNode1(), tmp_1);
 				tau_c.put(e.getNode2(), tmp_2);
 			}
+			// this part practically unused in Triest-IMPR, could be erased
 			else {
 				tau--;
 				tau_c.put(c, --tmp_c);
