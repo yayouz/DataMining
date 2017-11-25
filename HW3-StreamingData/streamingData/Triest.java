@@ -31,10 +31,13 @@ public class Triest {
 		this.t++;	
 		int n1 = e.getNode1();
 		int n2 = e.getNode2();
-		System.out.println("The new edge is : "+n1+" , "+n2);
+		System.out.println("-----------------");
+		System.out.println("Time: "+t);
+		System.out.println("The new edge is: "+n1+" , "+n2);
 		UpdateCounters(0, e);
 		if(sampleEdge(e)){
 			sampleSet.add(e);
+			System.out.println("insert edge: "+n1+" , "+n2);
 			if (neighbor.containsKey(n1)) {
 				Set<Integer> tmpSet = neighbor.get(n1);
 				tmpSet.add(n2);
@@ -112,7 +115,7 @@ public class Triest {
 				tau_c.put(e.getNode1(), tmp_1);
 				tau_c.put(e.getNode2(), tmp_2);
 			}
-			// this part practically unused in Triest-IMPR, could be erased
+			// this part is unused in Triest-IMPR, could be erased
 			else {
 				tau--;
 				tau_c.put(c, --tmp_c);
