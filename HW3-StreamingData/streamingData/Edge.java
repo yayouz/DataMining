@@ -3,6 +3,7 @@ package streamingData;
 public class Edge {
    private int node1;
    private int node2;
+   
    public Edge(int n1,int n2){
 	   this.node1=n1;
 	   this.node2=n2;	   
