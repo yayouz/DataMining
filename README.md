@@ -1,6 +1,6 @@
 # DataMining
 
-This is a repo for course tasks of [ID2222 Data Mining](https://www.kth.se/social/course/ID2222/) at KTH. The implementations of algorithms are done in Java.
+This is a repo for course tasks of [ID2222 Data Mining](https://www.kth.se/social/course/ID2222/) at KTH. The implementations of algorithms are mainly done in Java.
 
 ## Contents
 
