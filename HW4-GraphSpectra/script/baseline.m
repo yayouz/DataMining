@@ -1,7 +1,7 @@
 clear;
 
 % read in data
-file = 'example2.dat';
+file = 'data_Flame.dat';
 E = csvread(['../data/' file]);
 disp('------- Data read-in done! -------');
 disp(['Data file name: ' file]);
@@ -9,7 +9,7 @@ disp(['Data file name: ' file]);
 % initial parameters
 sigma = 1.5;
 dim = size(E, 2);
-k = 4;
+k = 2;
 
 % form affinity matrix A
 pair_dist = squareform(pdist(E));
