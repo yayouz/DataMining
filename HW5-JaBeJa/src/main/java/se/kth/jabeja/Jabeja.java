@@ -111,7 +111,7 @@ public class Jabeja {
 		dpq = getDegree(nodep, nodeq.getColor());
 		dqp = getDegree(nodeq, nodep.getColor());
 		newSum = Math.pow(dpq, config.getAlpha())+ Math.pow(dqp, config.getAlpha());;
-		if((newSum>oldSum)&&(newSum>highestBenefit)){
+		if((newSum*T>oldSum)&&(newSum>highestBenefit)){
 			
 			highestBenefit = newSum;
 			bestPartner = nodeq;
