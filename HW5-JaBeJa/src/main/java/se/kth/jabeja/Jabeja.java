@@ -102,16 +102,15 @@ public class Jabeja {
     Node bestPartner = null;
     double highestBenefit = 0;
 	double dpp,dqq,dpq,dqp,newSum,oldSum;
-	double alpha = 1;
     // TODO
     for (Integer q : nodes){
 		Node nodeq = entireGraph.get(q);
 		dpp = getDegree(nodep, nodep.getColor());
 		dqq = getDegree(nodeq, nodeq.getColor());
-		oldSum = Math.pow((dpp + dqq),alpha);
+		oldSum = Math.pow(dpp, config.getAlpha())+ Math.pow(dqq, config.getAlpha());
 		dpq = getDegree(nodep, nodeq.getColor());
 		dqp = getDegree(nodeq, nodep.getColor());
-		newSum = Math.pow((dpq + dqp),alpha);
+		newSum = Math.pow(dpq, config.getAlpha())+ Math.pow(dqp, config.getAlpha());;
 		if((newSum>oldSum)&&(newSum>highestBenefit)){
 			
 			highestBenefit = newSum;
